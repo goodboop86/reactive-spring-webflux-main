@@ -1,7 +1,25 @@
 package com.learnreactiveprogramming.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import reactor.test.StepVerifier;
 
-class FluxAndMonoGeneratorServiceTest {
+
+public class FluxAndMonoGeneratorServiceTest {
+
+    FluxAndMonoGeneratorService fluxAndMonoGeneratorService =
+            new FluxAndMonoGeneratorService();
+
+    @Test
+    void namesFlux() {
+
+        var namesFlux = fluxAndMonoGeneratorService.namesFlux();
+
+        //create()はpublisherへのリクエストも行っている。
+        StepVerifier.create(namesFlux)
+                //.expectNext("alex","ben","chloe")
+                .expectNextCount(3)
+        .verifyComplete();
+
+    }
 
 }
